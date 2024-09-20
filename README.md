@@ -1,46 +1,87 @@
+
 ---
 
 # Desafio 4: Construindo um Modelo de Regressão para Marketing
 
-Este notebook apresenta a construção de um modelo de regressão linear para prever o retorno de vendas baseado em investimentos de marketing em três plataformas: YouTube, Facebook e jornal.
+Este notebook desenvolve um modelo de regressão linear para prever o retorno de vendas baseado em investimentos de marketing nas plataformas YouTube, Facebook e Jornal.
 
 ## Estrutura do Projeto
 
 ### 1. **Importações**
-As bibliotecas utilizadas para o desenvolvimento e análise do modelo são:
+As bibliotecas utilizadas no desenvolvimento do modelo são:
 
-- `pandas` para manipulação e análise de dados
-- `seaborn` e `matplotlib` para visualizações
-- `scikit-learn` para modelagem e métricas
+- `pandas`: Manipulação e análise de dados
+- `seaborn` e `matplotlib`: Visualização de dados
+- `scikit-learn`: Modelagem e avaliação do modelo
+- `random`: Para gerar valores aleatórios no teste de acurácia
 
 ### 2. **Carregamento dos Dados**
-Os dados utilizados para treinar e avaliar o modelo estão no arquivo `MKT.csv`, que contém informações sobre os investimentos em marketing nas plataformas YouTube, Facebook e jornais, além das vendas geradas.
+Os dados estão no arquivo `MKT.csv`, contendo informações sobre investimentos de marketing e vendas associadas. O arquivo é carregado com:
+
+```python
+MKT = pd.read_csv('MKT.csv', sep=',')
+```
 
 ### 3. **Análise Exploratória e Descritiva**
-Nesta etapa, são realizadas diversas análises para entender melhor os dados:
+Realiza-se uma análise inicial para entender a distribuição dos dados e verificar a correlação entre as variáveis.
 
-- Visualização de amostras dos dados com `.head()`
-- Análise de tipos de dados e valores ausentes com `.info()` e `.isnull()`
-- Estatísticas descritivas com `.describe()`
-- Histogramas para verificar a distribuição dos investimentos por plataforma
-- Análise de correlação entre as variáveis com `.corr()` e `sns.heatmap()`
+#### 3.1 Análise Descritiva
+Comandos principais:
 
-Conclusões preliminares indicam que o investimento no YouTube traz o maior retorno em vendas, seguido pelo Facebook, enquanto o jornal apresenta o menor impacto.
+- `MKT.head(10)`: Visualiza as primeiras 10 linhas do dataset
+- `MKT.info()`: Verifica os tipos de dados e valores nulos
+- `MKT.describe()`: Exibe estatísticas descritivas
+
+Foram criados histogramas para examinar a distribuição dos investimentos nas plataformas.
+
+#### 3.2 Análise Exploratória
+- Correlação entre variáveis com `MKT.corr()`
+- Mapa de calor da correlação com `sns.heatmap(MKT.corr())`
+
+Observação: O investimento em YouTube tem o maior impacto nas vendas, seguido por Facebook e Jornal.
 
 ### 4. **Modelagem**
 #### 4.1 Divisão dos Dados
-Os dados são divididos em variáveis independentes (`youtube`, `facebook`, `newspaper`) e a variável dependente (`sales`). Em seguida, são divididos em conjuntos de treino (70%) e teste (30%) para validação do modelo.
+As variáveis independentes (investimentos) e a dependente (vendas) são divididas:
+
+```python
+x = MKT[['youtube', 'facebook', 'newspaper']]
+y = MKT['sales']
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.7, random_state=42)
+```
 
 #### 4.2 Criação e Treinamento do Modelo
-O modelo de regressão linear é criado e treinado com o conjunto de treino.
+O modelo de regressão linear é treinado com o conjunto de treino:
+
+```python
+LinearMKT = LinearRegression()
+LinearMKT.fit(x_train, y_train)
+```
 
 #### 4.3 Avaliação do Modelo
-O modelo é avaliado usando a métrica `R²`, que indica o quão bem ele explica a variabilidade dos dados de teste.
+O modelo é avaliado utilizando o `R²` para medir sua precisão:
+
+```python
+y_pred = LinearMKT.predict(x_test)
+r2 = r2_score(y_test, y_pred)
+print(f'R²: {r2:.2f}')
+```
 
 ### 5. **Teste de Acurácia**
-Uma linha aleatória do dataset é utilizada para testar a acurácia do modelo. São comparados os valores reais e preditos para verificar a precisão das previsões do modelo.
+Testa-se o modelo com uma linha aleatória do dataset:
+
+```python
+linha_aleatoria = MKT.iloc[randint(0, 171)]
+x_test_acur = [[318.24, 3.48, 51.60]]  # Valores de teste
+y_test_acur = 15.24  # Valor real de vendas
+y_test_acur_pred = LinearMKT.predict(x_test_acur)
+
+print(f'Real: {y_test_acur}\nPredito: {y_test_acur_pred[0]:.2f}')
+acuracidade = 100 - ((y_test_acur_pred / y_test_acur) * 100 - 100)[0]
+print(f'Acuracidade: {acuracidade:.2f}%')
+```
 
 ## Conclusão
-Através da análise exploratória e da construção do modelo de regressão, foi possível observar que a empresa deve focar seus investimentos nas plataformas YouTube e Facebook para maximizar o retorno em vendas.
+A análise e o modelo sugerem que a empresa deve focar seus investimentos nas plataformas YouTube e Facebook para maximizar o retorno em vendas.
 
 ---
