@@ -12,7 +12,7 @@
 
 **Data Preparation** com tratamentos de qualidade, imputação de nulos com algoritimos, codificação de features categóricas e padronização do dataset, Feature Importance e Undersampling.
 
-**Modelling** com criação de defaults e otimização de Hiperparâmetros, as duas etapas avaliadas com cross_validation de métricas diferentes e visualização de matrizes de confusão e curvas ROC. E, por fim: a interpretabilidade de decisão do modelo com LIME.
+**Modelling** com criação de Modelos default e com otimização de Hiperparâmetros; Tendo as duas etapas sendo avaliadas com com a técnica de Validação-Cruzada em diferentes métricas de classificação, visualização de matrizes de confusão e curvas ROC. E, por fim: a interpretabilidade de decisão do modelo com LIME.
 
 ### Versionamento:
 **O controle de versões está inteiramente na plataforma Google Colaboratory.**
@@ -26,7 +26,7 @@
 
 **Escopo e limitações: Este projeto é simples, e não utiliza de métodos e técnicas avançadas. Ele se concentra no domínio dos conceitos básicos de Machine Learning, no campo da Regressão**
 
-**Descrição:** O projeto visa a predição do lucro retornado dos investimentos em diferentes canais de anunciação, tentando assegurar quais canais trazem mais lucro e as quantidades de investimentos a serem consideradas para cada um. O notebook detalha processos de Data Understanding, Data Cleaning e Data Wrangling; Modelagem com avaliação por métricas e amostragem aleatória.
+**Descrição:** O projeto visa a predição do lucro retornado dos investimentos em diferentes canais de anunciação, tentando assegurar quais canais trazem mais lucro e as quantidades de investimentos a serem consideradas para cada um. O notebook detalha processos de Data Understanding, Data Cleaning, Data Wrangling e Modelagem com avaliação por métricas e amostragem aleatória.
 
 ### Versionamento:
 **O controle de versões está inteiramente na plataforma Google Colaboratory.**
